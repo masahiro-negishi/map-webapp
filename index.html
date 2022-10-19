@@ -1,4 +1,55 @@
 <!DOCTYPE html>
-<head>
-  Test
-</head>
+<html lang="ja">
+    <head>
+        <!--Encoding-->
+        <meta charset="utf-8">
+
+        <!--Title of the page-->
+        <title>Isochrone</title>
+
+        <!--Initial scale of the viewport-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Style sheet-->
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
+        <link href="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+
+        <!--JavaScript-->
+        <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+        <script src="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.js"></script>
+    </head>
+
+    <body>
+        <!--Container for the map-->
+        <div id="map"></div>
+
+        <!--Side bar-->
+        <div class="absolute fl my24 mx24 py24 px24 bg-gray-faint round">
+            <form id="params">
+                <!--Specify duration-->
+                <h4 class="txt-m txt-bold mb6">Maximum duration (1 ~ 60 [minute]):</h4>
+                <div>
+                    <label>
+                        <input class="input input--border-blue" type="number" id="duration" min="5" max="60" value="10">
+                    </label>
+                </div>
+                <h4 class="txt-m txt-bold mb6">Longitude:</h4>
+                <div>
+                    <label>
+                        <input class="input input--border-blue" type="number" id="longitude" min="-180.000" max="180.000" step="0.001" value="139.652">
+                    </label>
+                </div>
+                <h4 class="txt-m txt-bold mb6">Latitude:</h4>
+                <div>
+                    <label>
+                        <input class="input input--border-blue" type="number" id="latitude" min="-180.000" max="180.000" step="0.001" value="35.689">
+                    </label>
+                </div>
+            </form>
+        </div>      
+        
+        <!--JavaScript-->
+        <script src="script.js"></script>
+    </body>
+</html>
