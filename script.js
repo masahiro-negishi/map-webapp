@@ -10,6 +10,8 @@ let profile = 'walking'; // Default routing profile
 let minutes = 10; // Default duration
 let marker;
 let lngLat;
+let pin_color = '#314ccd';
+let area_color = '#5a3fc0';
 const APIKEY = config.apikey;
 
 
@@ -32,7 +34,7 @@ function InitializeMap(){
         zoom: 11.5, // Starting zoom
     });
     marker = new mapboxgl.Marker({
-        color: '#314ccd'
+        color: pin_color
     });
     lngLat = {
         lon: lon,
@@ -62,7 +64,7 @@ function InitializeIsochrone(){
                 layout: {},
                 paint: {
                     // The fill color for the layer is set to a light purple
-                    'fill-color': '#5a3fc0',
+                    'fill-color': area_color,
                     'fill-opacity': 0.3
                 }
             },
@@ -196,4 +198,29 @@ centerposform.addEventListener("change", (event) => {
             center: [lon, lat]
         });
     });
+});
+
+// Target the color-form form in the HTML
+const colorform = document.getElementById('color-form');
+
+// When a user changes the color
+colorform.addEventListener("change", (event) => {
+    //Get color
+    color = event.target.value;
+    if(color === 'blue'){
+        pin_color = '#314ccd';
+        area_color = '#5a3fc0';
+    }
+    else if(color === 'red'){
+        pin_color = '#dc143c';
+        area_color = '#db7093';
+    }
+    else if(color === 'green'){
+        pin_color = '#006400';
+        area_color = '#66cdaa';
+    }
+
+    // Initialize map
+    InitializeMap();
+    InitializeIsochrone();
 });
