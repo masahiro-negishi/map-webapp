@@ -9,7 +9,7 @@ let profile = 'walking'; // Default routing profile
 let minutes = 10; // Default duration
 let marker;
 let lngLat;
-let apikey = "APIKEY";
+const APIKEY = config.apikey;
 
 
 /////////////////
@@ -23,7 +23,7 @@ InitializeIsochrone();
 // Add Mapbox token and set map
 function InitializeMap(){
     console.log("InitializeMap");
-    mapboxgl.accessToken = apikey;
+    mapboxgl.accessToken = APIKEY;
     map = new mapboxgl.Map({
         container: 'map', // Container ID
         style: 'mapbox://styles/mapbox/streets-v11', // Which map style to use
