@@ -4,8 +4,8 @@
 let map; 
 let mapstyle = "streets-v11";
 const urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
-let lon = 139.692;
-let lat = 35.689;
+let lon = 139.699766625;
+let lat = 35.689480375;
 let profile = 'walking'; // Default routing profile
 let minutes = 10; // Default duration
 let marker;
@@ -77,7 +77,7 @@ function InitializeIsochrone(){
 // Call a query
 ///////////////
 
-// Call a query
+// Get Isochrone
 async function getIso(){
     console.log("getIso");
     const query = await fetch(
@@ -89,10 +89,49 @@ async function getIso(){
     map.getSource('iso').setData(data);
 }
 
+// Get longitude and latitude
+async function getForwardGeocoding(placename){
+    console.log("getForwardGeocoding");
+    const query = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${placename}.json?access_token=${APIKEY}`,
+        { method: 'GET' }
+    );
+    const data = await query.json();
+    console.log(data['features']);
+
+    // Set center position
+    result = data['features'][0];
+    lon = result['center'][0];
+    lat = result['center'][1];
+    document.getElementById('place-name').value = result['place_name'];    
+    document.getElementById('longitude').value = lon;    
+    document.getElementById('latitude').value = lat;    
+}
+
+// Get the place name
+async function getReverseGeocoding(){
+    console.log("getReverseGeocoding");
+    const query = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lon},${lat}.json?access_token=${APIKEY}`,
+        { method: 'GET' }
+    );
+    const data = await query.json();
+    console.log(data);
+
+    // Set the place name
+    result = data['features'][0];
+    document.getElementById('place-name').value = result['place_name']; // the name of the nearest place
+}
+
+
+//////////////////
+// Event Listeners
+//////////////////
+
 // Target the "params" form in the HTML
 const params = document.getElementById('params');
 
-// When a user changes the value of duration, profile, or center position, change the parameter's value and make the API query again
+// When a user changes the value of duration, profile, or longitude or latitude change the parameter's value and make the API query again
 params.addEventListener("change", (event) => {
     if(event.target.name === 'profile'){
         profile = event.target.value;
@@ -115,6 +154,9 @@ params.addEventListener("change", (event) => {
     map.flyTo({
         center: [lon, lat]
     });
+
+    // Change the place name
+    getReverseGeocoding();
 });
 
 // Target the map-style-form form in the HTML
@@ -127,4 +169,31 @@ mapstyleform.addEventListener("change", (event) => {
     // Initialize map
     InitializeMap();
     InitializeIsochrone();
+});
+
+// Target the center-position-form form in the HTML
+const centerposform = document.getElementById('center-position-form');
+
+// When a user changes the center position name
+centerposform.addEventListener("change", (event) => {
+    //Get longitude and latitude
+    placename = event.target.value;
+    console.log(placename)
+    getForwardGeocoding(placename).then(value => {
+        // Call this API call after finishing the ForwardGeocoding API call.
+        // Change the isochrone 
+        getIso();
+
+        // Move the center position
+        lngLat = {
+            lon: lon,
+            lat: lat
+        };
+        marker.setLngLat(lngLat);
+
+        // Move map
+        map.flyTo({
+            center: [lon, lat]
+        });
+    });
 });

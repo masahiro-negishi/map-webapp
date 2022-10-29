@@ -13,12 +13,14 @@
         <!--Style sheet-->
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
         <link href="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">-->
         <link href="style.css" rel="stylesheet">
 
         <!--JavaScript-->
         <script src="apikey.js"></script>
         <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
         <script src="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.js"></script>
+        <!--<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>-->
     </head>
 
     <body>
@@ -52,22 +54,24 @@
                     </label>
                 </div>
                 <!--Center position-->
-                <h4 class="txt-m txt-bold mb6">Place name:</h4>
-                <div>
-                    <label>
-                        <input class="input input--border-blue" type="text" id="name">
-                    </label>
-                </div>
                 <h4 class="txt-m txt-bold mb6">Longitude:</h4>
                 <div>
                     <label>
-                        <input class="input input--border-blue" type="number" id="longitude" min="-180.000" max="180.000" step="0.001" value="139.692">
+                        <input class="input input--border-blue" type="number" id="longitude" min="-180.000" max="180.000" step="1e-9" value="139.699766625">
                     </label>
                 </div>
                 <h4 class="txt-m txt-bold mb6">Latitude:</h4>
                 <div>
                     <label>
-                        <input class="input input--border-blue" type="number" id="latitude" min="-180.000" max="180.000" step="0.001" value="35.689">
+                        <input class="input input--border-blue" type="number" id="latitude" min="-180.000" max="180.000" step="1e-9" value="35.689480375">
+                    </label>
+                </div>
+            </form>
+            <form id="center-position-form" onsubmit="return false;">
+                <h4 class="txt-m txt-bold mb6">Place name:</h4>
+                <div>
+                    <label>
+                        <input class="input input--border-blue" type="text" id="place-name" value="新宿駅 (Shinjuku Sta.), 新宿3/西新宿1/代々木2, 東京都, Tokyo Prefecture 160-0023, Japan">
                     </label>
                 </div>
             </form>
