@@ -28,17 +28,40 @@
         <!--Side bar-->
         <div class="absolute fl my24 mx24 py24 px24 bg-gray-faint round">
             <form id="params">
-                <!--Specify duration-->
+                <!--Travel mode-->
+                <h4 class='txt-m txt-bold mb6'>Choose a travel mode:</h4>
+                <div class='mb12 mr12 toggle-group align-center'>
+                    <label class='toggle-container'>
+                        <input name='profile' type='radio' value='walking' checked>
+                        <div class='toggle toggle--active-null toggle--null'>Walking</div>
+                    </label>
+                    <label class='toggle-container'>
+                        <input name='profile' type='radio' value='cycling'>
+                        <div class='toggle toggle--active-null toggle--null'>Cycling</div>
+                    </label>
+                    <label class='toggle-container'>
+                        <input name='profile' type='radio' value='driving'>
+                        <div class='toggle toggle--active-null toggle--null'>Driving</div>
+                    </label>
+                </div>
+                <!--Duration-->
                 <h4 class="txt-m txt-bold mb6">Maximum duration (1 ~ 60 [minute]):</h4>
                 <div>
                     <label>
                         <input class="input input--border-blue" type="number" id="duration" min="5" max="60" value="10">
                     </label>
                 </div>
+                <!--Center position-->
+                <h4 class="txt-m txt-bold mb6">Place name:</h4>
+                <div>
+                    <label>
+                        <input class="input input--border-blue" type="text" id="name">
+                    </label>
+                </div>
                 <h4 class="txt-m txt-bold mb6">Longitude:</h4>
                 <div>
                     <label>
-                        <input class="input input--border-blue" type="number" id="longitude" min="-180.000" max="180.000" step="0.001" value="139.652">
+                        <input class="input input--border-blue" type="number" id="longitude" min="-180.000" max="180.000" step="0.001" value="139.692">
                     </label>
                 </div>
                 <h4 class="txt-m txt-bold mb6">Latitude:</h4>
@@ -48,8 +71,22 @@
                     </label>
                 </div>
             </form>
+            <form id="map-style-form">
+                <h4 class="txt-m txt-bold mb6">Map style:</h4>
+                <div class="select-container">
+                    <select name="map-style" class="select select--stroke select--blue">
+                        <option value="streets-v11">Streets</option>
+                        <option value="outdoors-v11">Outdoors</option>
+                        <option value="light-v10">Light</option>
+                        <option value="dark-v10">Dark</option>
+                        <option value="satellite-streets-v11">Satellite Streets</option>
+                        <option value="navigation-day-v1">Navigation Day</option>
+                        <option value="navigation-night-v1">Navigation Night</option>
+                    </select>
+                    <div class="select-arrow"></div>
+                </div>
+            </form>
         </div>      
-        
         <!--JavaScript-->
         <script src="script.js"></script>
     </body>

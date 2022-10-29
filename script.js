@@ -2,6 +2,7 @@
 // Shared variables
 ///////////////////
 let map; 
+let mapstyle = "streets-v11";
 const urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
 let lon = 139.692;
 let lat = 35.689;
@@ -26,8 +27,8 @@ function InitializeMap(){
     mapboxgl.accessToken = APIKEY;
     map = new mapboxgl.Map({
         container: 'map', // Container ID
-        style: 'mapbox://styles/mapbox/streets-v11', // Which map style to use
-        center: [139.692, 35.689], // Starting position
+        style: `mapbox://styles/mapbox/${mapstyle}`, // Which map style to use
+        center: [lon, lat], // Starting position
         zoom: 11.5, // Starting zoom
     });
     marker = new mapboxgl.Marker({
@@ -91,8 +92,11 @@ async function getIso(){
 // Target the "params" form in the HTML
 const params = document.getElementById('params');
 
-// When a user changes the value of duration, change the parameter's value and make the API query again
-params.addEventListener("change", () => {
+// When a user changes the value of duration, profile, or center position, change the parameter's value and make the API query again
+params.addEventListener("change", (event) => {
+    if(event.target.name === 'profile'){
+        profile = event.target.value;
+    }
     minutes = document.getElementById("duration").value;
     lon = document.getElementById("longitude").value;
     lat = document.getElementById("latitude").value;
@@ -111,4 +115,16 @@ params.addEventListener("change", () => {
     map.flyTo({
         center: [lon, lat]
     });
+});
+
+// Target the map-style-form form in the HTML
+const mapstyleform = document.getElementById('map-style-form');
+
+// When a user changes the style of the map
+mapstyleform.addEventListener("change", (event) => {
+    mapstyle = event.target.value;
+
+    // Initialize map
+    InitializeMap();
+    InitializeIsochrone();
 });
